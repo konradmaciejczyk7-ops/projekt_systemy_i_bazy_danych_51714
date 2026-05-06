@@ -6,6 +6,15 @@ app = FastAPI()
 def read_root():
     return {"message": "System rezerwacji sal działa"}
 
+@app.get("/status")
+def status():
+    return {
+        "app": "rezerwacja sal",
+        "status": "dziala",
+        "autor": "Konrad",
+        "version": "0.1"
+    }
+
 @app.get("/rooms")
 def get_rooms():
     return [
