@@ -1,0 +1,6 @@
+"dependencies": {
+  "react": "^18.x.x",
+  "react-dom": "^18.x.x",
+  "react-router-dom": "^7.x.x",
+  "axios": "^1.x.x"
+}
