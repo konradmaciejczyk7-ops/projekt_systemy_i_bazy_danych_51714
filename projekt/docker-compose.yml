@@ -1,0 +1,83 @@
+services:
+
+  postgres:
+    image: postgres:16
+    container_name: reservation-postgres
+    restart: always
+
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: reservation_system
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    networks:
+      - reservation-network
+
+
+  user-service:
+    build: ./user-service
+    container_name: user-service
+    restart: always
+
+    ports:
+      - "8001:8000"
+
+    environment:
+      DATABASE_URL: postgresql://admin:admin@reservation-postgres:5432/reservation_system
+
+    depends_on:
+      - postgres
+
+    networks:
+      - reservation-network
+
+
+  room-service:
+    build: ./room-service
+    container_name: room-service
+    restart: always
+
+    ports:
+      - "8004:8000"
+
+    environment:
+      DATABASE_URL: postgresql://admin:admin@reservation-postgres:5432/reservation_system
+
+    depends_on:
+      - postgres
+
+    networks:
+      - reservation-network
+
+
+  reservation-service:
+    build: ./reservation-service
+    container_name: reservation-service
+    restart: always
+
+    ports:
+      - "8003:8000"
+
+    environment:
+      DATABASE_URL: postgresql://admin:admin@reservation-postgres:5432/reservation_system
+
+    depends_on:
+      - postgres
+
+    networks:
+      - reservation-network
+
+
+volumes:
+  postgres_data:
+
+
+networks:
+  reservation-network:
+    driver: bridge
