@@ -71,7 +71,7 @@ def register(user: UserRegister, db: Session = Depends(get_db)):
         "message": "User created successfully",
         "user_id": new_user.id
     }
-
+@app.post("/auth/login")
 def login(data: UserLogin, db: Session = Depends(get_db)):
 
     user = db.query(User).filter(User.email == data.email).first()

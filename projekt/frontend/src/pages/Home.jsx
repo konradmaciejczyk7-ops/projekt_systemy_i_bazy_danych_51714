@@ -119,11 +119,9 @@ export default function Home() {
               Moje rezerwacje
             </button>
 
-            {user?.role === "admin" && (
-              <button onClick={() => navigate("/my-rooms")}>
-                Moje obiekty
-              </button>
-            )}
+            <button onClick={() => navigate("/my-rooms")}>
+              Moje obiekty <span style={{ opacity: 0.6 }}>(w budowie)</span>
+            </button>
 
             <button onClick={logout}>
               Wyloguj
